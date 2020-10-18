@@ -37,6 +37,24 @@ class HttpRequest {
     return {baseRUL:this.baseRUL,timeout:this.timeout,...options}
   }
   request(options){
-    
+    const instance = axios.create();
+    this.setInterceptors(instance);
+    const opts = this.mergeOptions(options);         
+    return instance(opts);                                                                                                                                                                                                                            
+  }
+  get(url,config){
+    return this.request({
+      method:'get',
+      url,
+      ...config
+    })
+  }
+  post(url,data){
+    return this.request({
+      method:'post',
+      url,
+      data
+    })
   }
 }
+export default new HttpRequest;
